@@ -1,0 +1,21 @@
+name: Rename blog.html to index.html
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename blog.html to index.html
+        run: |
+          if [ -f blog.html ]; then
+            git mv blog.html index.html
+            git config user.name "afterthestormblog"
+            git config user.email "jennilyn242000@gmail.com"
+            git commit -m "Rename blog.html to index.html"
+            git push
+          else
+            echo "blog.html not found"
+          fi
